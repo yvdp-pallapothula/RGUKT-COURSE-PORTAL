@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Previous Papers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f6ff;
+      color: #2d2d2d;
+    }
+
+    header {
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+
+    main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    main p {
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #4b3b63;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    li {
+      width: 100%;
+    }
+
+    li a,
+    .dropdown-btn {
+      display: block;
+      background-color: #e8e3f5;
+      margin: 15px 0;
+      padding: 15px;
+      text-decoration: none;
+      color: #4b2e7a;
+      border-left: 6px solid #9c7dd8;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: 500;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    li a:hover,
+    .dropdown-btn:hover {
+      background-color: #dcd1f0;
+      transform: scale(1.02);
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .dropdown-content {
+      background-color: transparent;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .dropdown-content.show {
+      max-height: 20cm;
+    }
+
+    .dropdown-content a {
+      display: block;
+      background-color: #e8e3f5;
+      margin: 15px 0;
+      padding: 15px;
+      text-decoration: none;
+      color: #4b2e7a;
+      border-left: 6px solid #9c7dd8;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: 500;
+      width: 100%;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #dcd1f0;
+      transform: scale(1.02);
+    }
+
+    .center-heading {
+      text-align: center;
+      
+     
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>Previous Papers</h2>
+  </header>
+
+  <main>
+    <p>Select the Campus For Mid papers</p>
+    
+    <ul>
+      <li><a href="nuzmid.html">Nuzvid</a></li>
+     <li><a href="Sklmmid.html">Srikakulam</a></li>
+     <li><a href="rkvmid.html">R.K.Valley</a></li>
+     <li><a href="ongmid.html">Ongole</a></li>
+       
+   
+    </ul>
+  
+
+<h3>Click on Semester to select</h3>
+
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu') ">Semester Papers 👇</button>
+        <div id=dropdownMenu  class="dropdown-content">
+          <a href="#">A.Y.2024-25</a>
+          <a href="#">A.Y.2023-24</a>
+          <a href="#">A.Y.2022-23</a>
+        </div>
+      </li>
+    </ul>
+
+    <div style="height: 3cm;"></div>
+
+    <h5 class="center-heading">Developed by Yugandhar Pallapothula</h5>
+    <h6 class="center-heading">Batch 2024 - RGUKT Srikakulam</h6>
+    <div style="height: 1.5cm;"></div>
+  </main>
+
+  <script>
+    function toggleDropdown(id) {
+      const menu = document.getElementById(id);
+      menu.classList.toggle("show");
+    }
+  </script>
+
+  
+</body>
+
+</html>
