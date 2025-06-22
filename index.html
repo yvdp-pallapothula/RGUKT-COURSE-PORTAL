@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rgukt Content Portal-2025</title>
+  <title>Student Course Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" type="/Rajiv_Gandhi_University_of_Knowledge_Technologies.png">
   <style>
@@ -240,11 +240,12 @@
 
 <body>
 
-  <div class="highlight-container">
-    <div class="highlight-blink-scroll">
-      New! JEE & EAPCET Materials will be updated soon! Previous papers are available now. 
-    </div>
+<div class="highlight-container">
+  <div class="highlight-blink-scroll">
+    📄 RGUKT AP 2025 Selection List Released – 
+    <a href="/selection.html" style="color: #6e4c9e; text-decoration: underline; font-weight: bold;">Click Here</a>
   </div>
+</div>
 
   <header>
     <img src="/Rajiv_Gandhi_University_of_Knowledge_Technologies.png" alt="Site Logo" class="logo">
@@ -258,41 +259,126 @@
       <li class="dropdown">
         <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu0')">P1S1</button>
         <div id="dropdownMenu0" class="dropdown-content">
-          <a href="p1s1new.html">For  students of batch 2025 onwards</a>
-          <a href="p1s1.html">For students up to 2024 batch</a>
+          <a href="p1s1new.html">For newly admitted students of 2025</a>
+          <a href="p1s1.html">For PUC students up to 2024 batch</a>
         </div>
       </li>
           <li class="dropdown">
         <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu1')">P1S2</button>
         <div id="dropdownMenu1" class="dropdown-content">
-          <a href="p1s2new.html">For students of batch 2025 onwards</a>
-          <a href="p1s2.html">For students up to 2024 batch</a>
+          <a href="p1s2new.html">For newly admitted students of 2025</a>
+          <a href="p1s2.html">For PUC students up to 2024 batch</a>
         </div>
         </li>
        <li class="dropdown">
         <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu2')">P2S1</button>
         <div id="dropdownMenu2" class="dropdown-content">
-          <a href="newcontentp1s2.html">For students of batch 2025 onwards</a>
-          <a href="oldcontentp2s1.html">For  students up to 2024 batch</a>
+          <a href="newcontentp1s1.html">For newly admitted students of 2025</a>
+          <a href="oldcontentp2s1.html">For PUC students up to 2024 batch</a>
         </div>
         </li>
             <li class="dropdown">
         <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu3')">P2S2</button>
         <div id="dropdownMenu3" class="dropdown-content">
-          <a href="p2s2new.html">For  students of batch 2025 onwards</a>
-          <a href="p2s2.html">For  students up to 2024 batch</a>
+          <a href="p2s2new.html">For newly admitted students of 2025</a>
+          <a href="p2s2.html">For PUC students up to 2024 batch</a>
         </div>
         <p>Select the option</p>
       <li><a href="previousppapers.html">Previous Year Papers</a></li>
-      <li><a href="exammaterialhtml">Competitive Exam Materials</a></li>
+       <li><a href="exammaterialhtml">Competitive Exam Materials</a></li>      <li><a href="selection.html"> RGUKT Selection list 2025</a></li>
     </ul>
   </main>
 
-  <div class="footer-note-box">
-    <p><b><i>Developed by Yugandhar Pallapothula</i></b></p>
-    <p><i>2024 Batch - RGUKT Srikakulam</i></p>
-  </div>
+<!-- Popup container -->
+<div id="selectionPopup">
+  <span class="popupClose" onclick="closePopup()">✖</span>
+  <h3>📄 RGUKT AP 2025 Selection List</h3>
+  <p>Campus wise selection lists for RGUKT Andhra Pradesh are now available.</p>
+  <a class="popupButton" href="/selection.html">🔗 View Selection List</a>
+</div>
 
+<style>
+  #selectionPopup {
+    position: fixed;
+    width: 300px;
+    top: 100px;
+    right: 20px;
+    background-color: #fff;
+    border: 2px solid #6e4c9e;
+    border-radius: 12px;
+    padding: 20px 18px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .popupClose {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6e4c9e;
+  }
+
+  #selectionPopup h3 {
+    margin-top: 0;
+    color: #46286b;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  #selectionPopup p {
+    font-size: 0.9rem;
+    color: #4b3b63;
+    margin-bottom: 16px;
+  }
+
+  .popupButton {
+    display: inline-block;
+    background-color: #6e4c9e;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+
+  .popupButton:hover {
+    background-color: #503474;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    #selectionPopup {
+      width: 90%;
+      left: 5%;
+      right: 5%;
+      top: auto;
+      bottom: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Show popup only on homepage
+  window.onload = function() {
+    if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+      document.getElementById("selectionPopup").style.display = "block";
+    }
+  };
+
+  function closePopup() {
+    document.getElementById("selectionPopup").style.display = "none";
+  }
+</script>
   <footer>
     <p>Made with <span style="color: red;">❤️</span> for Rguktians</p>
     <div class="social-icons">
