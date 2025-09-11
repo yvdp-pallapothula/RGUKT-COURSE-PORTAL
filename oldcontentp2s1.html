@@ -21,7 +21,13 @@
       <li><a href="chemistryp2s1.html">Chemistry</a></li>
             <li><a href="itp2s1.html">IT</a></li>
       <li><a href="telugup2s1.html">Telugu</a></li>
-      
+          <li class="dropdown">
+      <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu2')">Biology</button>
+      <div id="dropdownMenu2" class="dropdown-content">
+        <a href="Unit 1 Genetics.pdf"> Unit 1- Genetics</a>
+        <a href="Unit 2 Evolution 3-11-2022.pdf">For 2024 batch</a>
+      </div>
+          </li>
     </ul>
   </main>
 
@@ -42,6 +48,30 @@
       padding: 40px 20px 30px;
       text-align: center;
     }
+li a:hover,
+  .dropdown-btn:hover {
+    background-color: #dcd1f0;
+    transform: scale(1.02);
+  }
+
+  .dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-content {
+    background-color: transparent;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding-left: 10px;
+  }
+
+  .dropdown-content.show {
+    max-height: 500px;
+    padding-top: 8px;
+  }
 
     .university-box {
       display: inline-block;
