@@ -1,11 +1,177 @@
-  <html>
-
+ 
+ <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-    P2S1
-  </title>
+  <title>P2S1</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f6ff;
+      color: #2d2d2d;
+    }
+
+    header {
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+
+    main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    li a {
+      display: block;
+      background-color: #e8e3f5;
+      margin: 15px 0;
+      padding: 15px;
+      text-decoration: none;
+      color: #4b2e7a;
+      border-left: 6px solid #9c7dd8;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    li a:hover,
+    .dropdown-btn:hover {
+      background-color: #dcd1f0;
+      transform: scale(1.02);
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .dropdown-btn {
+      display: block;
+      width: 100%;
+      background-color: #e8e3f5;
+      padding: 15px;
+      color: #4b2e7a;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-align: left;
+      border: none;
+      border-left: 6px solid #9c7dd8;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-content {
+      background-color: transparent;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding-left: 10px;
+    }
+
+    .dropdown-content.show {
+      max-height: 500px;
+      padding-top: 8px;
+    }
+
+    footer {
+      background-color: #f1ecfb;
+      color: #4b3b63;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+      font-size: 0.95rem;
+      border-top: 2px solid #cbb6e2;
+      font-family: sans-serif;
+    }
+
+    footer p {
+      margin: 0 0 10px;
+    }
+
+    footer img {
+      height: 20px;
+      width: 20px;
+      filter: grayscale(1);
+    }
+
+    @media (max-width: 600px) {
+      li a {
+        font-size: 1rem;
+      }
+      .dropdown-btn {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
- <
+  <header>
+    <h1>PUC 2 SEM 1</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li><a href="englishp2s1.html">English</a></li>
+      <li><a href="mathsp2s1.html">Maths</a></li>
+      <li><a href="physicsp2s1.html">Physics</a></li>
+      <li><a href="chemistryp2s1.html">Chemistry</a></li>
+      <li><a href="itp2s1.html">IT</a></li>
+      <li><a href="telugup2s1.html">Telugu</a></li>
+
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu2')"><center>Biology</center></button>
+        <div id="dropdownMenu2" class="dropdown-content">
+          <a href="Unit 1 Genetics.pdf">Unit 1 - Genetics</a>
+          <a href="Unit 2 Evolution 3-11-2022.pdf">Unit 2 - Evolution</a>
+          <a href="Unit 3 Biomolecules.pdf">Unit 3 - Biomolecules</a>
+          <a href="Unit 4 Physiology.pdf">Unit 4 - Physiology</a>
+          <a href="">MBIPC Content</a>
+         
+        </div>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p style="font-size:20px; font-weight:bold; margin-bottom:20px;">
+      Made with <span style="color:red;">❤️</span> for Rguktians
+    </p>
+
+    <div style="display:flex; justify-content:center; gap:25px; margin-bottom:20px;">
+      <a href="https://www.youtube.com/@yvdp07" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      </a>
+      <a href="https://www.instagram.com/yugandharvdp_2007" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+
+    <p style="font-size:12px; color:#444;">&copy; 2025 Yugandhar Pallapothula. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDropdown(id) {
+      document.getElementById(id).classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
