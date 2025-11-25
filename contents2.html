@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUC 2 SEM 2</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         /* Custom CSS for the light grey background */
+        body {
+            background-color:#F3FFF9;
+            font-family: 'Inter', 'Times now Roman';
+        }
+
+        /* Custom CSS for the "glittering blue" effect on the main buttons */
+        .glittering-blue-btn {
+            background-color:#B9F6CA; 
+            color: #000000;
+            transition: all 0.2s ease-in-out;
+            /* Simulating 'glittering' with a light text shadow for shine */
+            text-shadow: 0 0 5px rgba(255, 244, 255, 0.7),
+                         0 0 10px rgba(173, 216, 230, 0.5);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .glittering-blue-btn:hover {
+            background-color: #D0FADE; 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 0 20px #90CAF9; /* Increased shadow and light glow */
+            transform: translateY(-2px);
+        }
+
+        /* --- MODAL COLOR PALETTE (Subject Specific Backgrounds) --- */
+        .bg-eng { background-color: #B3E5FC; }   /* Light Cyan/Blue */
+        .bg-tel { background-color: #FFECB3; }   /* Light Gold/Amber */
+        .bg-math { background-color: #E1BEE7; }  /* Pale Lavender/Purple */
+        .bg-phy { background-color: #C8E6C9; }   /* Light Sage Green */
+        .bg-it { background-color: #D7CCC8; }    /* Light Beige/Taupe */
+        .bg-chem { background-color: #9EEBCF; }  /* Refreshing Mint (User Request) */
+
+        /* --- MODAL ANIMATION STYLES --- */
+        .modal-hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-visible {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8">
+
+    <!-- Header (P2S2) -->
+    <header class="text-center mb-8">
+        <h1 class="text-5xl sm:text-5xl font-extrabold text-gray-800 tracking-tighter">PUC 2 SEM 2</h1>
+        <p class="text-gray-500 mt-2">Centralized Content Access Portal</p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-4xl mx-auto">
+        <div id="content-portal" class="space-y-4">
+            <!-- Subject buttons will be injected here by JavaScript -->
+        </div>
+    </main>
+    
+    <!-- Subject Units Modal (Overlay) -->
+    <div id="unit-modal" class="modal-hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+        <div id="modal-content-container" class="max-w-xl w-full mx-auto rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300">
+            <!-- Modal content dynamically injected here -->
+        </div>
+    </div>
+
+
+    <script>
+        // --- DATA STRUCTURE: Use 'files' array to manage specific PDFs and Titles ---
+        const subjectData = {
+            eng: { 
+                colorClass: 'bg-eng', 
+                name: 'English', 
+                files: [
+                    { title: 'Unit 1: Poetry Analysis & Context', url: 'https://example.com/pdfs/english/poetry_analysis.pdf' },
+                    { title: 'Unit 2: Creative Writing Prompts', url: 'https://example.com/pdfs/english/writing_prompts.pdf' },
+                    { title: 'Unit 3: Victorian Literature Summary', url: 'https://example.com/pdfs/english/victorian_lit.pdf' },
+                    { title: 'Unit 4: Essay Structure Guide', url: 'https://example.com/pdfs/english/essay_guide.pdf' },
+                    { title: 'Unit 5: Grammar and Syntax Check', url: 'https://example.com/pdfs/english/grammar_syntax.pdf' },
+                    { title: 'Unit 6: Speaking Exam Tips', url: 'https://example.com/pdfs/english/speaking_tips.pdf' }
+                ]
+            },
+            tel: { 
+                colorClass: 'bg-tel', 
+                name: 'Telugu', 
+                files: [
+                    { title: 'Unit 1: Basic Vocabulary', url: 'https://example.com/pdfs/telugu/vocab_basic.pdf' },
+                    { title: 'Unit 2: Grammar: Sandhulu', url: 'https://example.com/pdfs/telugu/sandhulu.pdf' },
+                    { title: 'Unit 3: Famous Poets', url: 'https://example.com/pdfs/telugu/poets_summary.pdf' },
+                    { title: 'Unit 4: Prose and Narrative', url: 'https://example.com/pdfs/telugu/prose.pdf' },
+                    { title: 'Unit 5: Exam Model Papers', url: 'https://example.com/pdfs/telugu/model_papers.pdf' },
+                    { title: 'Unit 6: Cultural Context', url: 'https://example.com/pdfs/telugu/culture.pdf' }
+                ]
+            },
+            math: { 
+                colorClass: 'bg-math', 
+                name: 'Mathematics', 
+                files: [
+                    { title: 'Unit 1: Calculus Differentiation', url: 'https://example.com/pdfs/math/calc_diff.pdf' },
+                    { title: 'Unit 2: Calculus Integration', url: 'https://example.com/pdfs/math/calc_int.pdf' },
+                    { title: 'Unit 3: Linear Algebra Matrices', url: 'https://example.com/pdfs/math/matrices.pdf' },
+                    { title: 'Unit 4: Statistics & Probability', url: 'https://example.com/pdfs/math/stats_prob.pdf' },
+                    { title: 'Unit 5: Vector Analysis', url: 'https://example.com/pdfs/math/vectors.pdf' },
+                    { title: 'Unit 6: Discrete Mathematics', url: 'https://example.com/pdfs/math/discrete.pdf' }
+                ]
+            },
+            phy: { 
+                colorClass: 'bg-phy', 
+                name: 'Physics', 
+                files: [
+                    { title: 'Unit 1: Quantum Mechanics Basics', url: 'https://example.com/pdfs/physics/quantum_basics.pdf' },
+                    { title: 'Unit 2: Thermodynamics Laws', url: 'https://example.com/pdfs/physics/thermo_laws.pdf' },
+                    { title: 'Unit 3: Optics and Lenses', url: 'https://example.com/pdfs/physics/optics.pdf' },
+                    { title: 'Unit 4: Electricity & Magnetism', url: 'https://example.com/pdfs/physics/electromagnetism.pdf' },
+                    { title: 'Unit 5: Nuclear Physics', url: 'https://example.com/pdfs/physics/nuclear_physics.pdf' },
+                    { title: 'Unit 6: Relativity and Space', url: 'https://example.com/pdfs/physics/relativity.pdf' }
+                ]
+            },
+            it: { 
+                colorClass: 'bg-it', 
+                name: 'Information Technology', 
+                files: [
+                    { title: 'Unit 1: Data Structures Overview', url: 'https://example.com/pdfs/it/data_structures.pdf' },
+                    { title: 'Unit 2: Network Protocols (TCP/IP)', url: 'https://example.com/pdfs/it/tcp_ip.pdf' },
+                    { title: 'Unit 3: Database Design (SQL)', url: 'https://example.com/pdfs/it/sql_design.pdf' },
+                    { title: 'Unit 4: Operating Systems Concepts', url: 'https://example.com/pdfs/it/os_concepts.pdf' },
+                    { title: 'Unit 5: Web Development Fundamentals', url: 'https://example.com/pdfs/it/web_fundamentals.pdf' },
+                    { title: 'Unit 6: Cybersecurity Principles', url: 'https://example.com/pdfs/it/cybersecurity.pdf' }
+                ]
+            },
+            chem: { 
+                colorClass: 'bg-chem', 
+                name: 'Chemistry', 
+                files: [
+                    { title: 'Unit 1: Organic Chemistry Alkanes', url: 'https://example.com/pdfs/chemistry/organic_alkanes.pdf' },
+                    { title: 'Unit 2: Inorganic Bonding', url: 'https://example.com/pdfs/chemistry/inorganic_bonding.pdf' },
+                    { title: 'Unit 3: Physical Chemistry Kinetics', url: 'https://example.com/pdfs/chemistry/kinetics.pdf' },
+                    { title: 'Unit 4: Electrochemistry', url: 'https://example.com/pdfs/chemistry/electrochemistry.pdf' },
+                    { title: 'Unit 5: Periodic Table Trends', url: 'https://example.com/pdfs/chemistry/periodic_trends.pdf' },
+                    { title: 'Unit 6: Laboratory Safety Manual', url: 'https://example.com/pdfs/chemistry/lab_safety.pdf' }
+                ]
+            }
+        };
+        // NOTE: Replace the 'https://example.com/pdfs/...' URLs with your actual PDF links.
+
+        const portal = document.getElementById('content-portal');
+        const unitModal = document.getElementById('unit-modal');
+        const modalContainer = document.getElementById('modal-content-container');
+
+        /**
+         * Closes the subject units modal with animation.
+         */
+        function closeSubjectModal() {
+            modalContainer.classList.remove('scale-100');
+            modalContainer.classList.add('scale-95');
+            unitModal.classList.remove('modal-visible');
+            unitModal.classList.add('modal-hidden');
+        }
+
+        /**
+         * Opens the modal and populates it with unit links for the selected subject.
+         * NOW USES THE STRUCTURED 'files' ARRAY.
+         */
+        function openSubjectModal(subjectKey) {
+            const data = subjectData[subjectKey];
+
+            // 1. Generate the HTML content for the units (PDF links)
+            let unitHtml = '';
+            
+            // Loop over the specific file data instead of just counting units
+            data.files.forEach((file, index) => {
+                const unitNumber = index + 1; // 1-based index for display
+                const pdfUrl = file.url;
+                const unitTitle = file.title;
+                
+                unitHtml += `
+                    <li class="border-b border-gray-200 last:border-b-0">
+                        <a href="${pdfUrl}" target="_blank" class="block p-4 text-gray-800 text-lg hover:bg-white transition-colors duration-200 rounded-lg flex justify-between items-center">
+                            <span class="font-bold mr-4">Unit ${unitNumber}:</span> ${unitTitle}
+                            <!-- PDF Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 flex-shrink-0 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 10a1 1 0 000 2h8a1 1 0 100-2H6zm0-3a1 1 0 000 2h8a1 1 0 100-2H6zm0-3a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </li>
+                `;
+            });
+
+            // 2. Generate the full Modal content, applying the unique color class
+            const modalContentHtml = `
+                <div class="${data.colorClass} p-6 h-full">
+                    <div class="bg-white p-6 rounded-xl shadow-xl">
+                        <h1 class="text-3xl font-extrabold mb-2 text-gray-800 border-b pb-2">${data.name} Units</h1>
+                        <p class="text-gray-600 mb-6">Select a unit to view the PDF content:</p>
+                        <div class="rounded-lg overflow-hidden border border-gray-300">
+                            <ul class="list-none p-0 divide-y divide-gray-200">
+                                ${unitHtml}
+                            </ul>
+                        </div>
+                        <div class="mt-8 text-center">
+                            <button onclick="closeSubjectModal()" class="bg-red-500 text-white p-3 px-6 rounded-xl hover:bg-red-600 transition-colors shadow-lg">Close Unit List</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 3. Populate the modal container and display it
+            modalContainer.innerHTML = modalContentHtml;
+            unitModal.classList.remove('modal-hidden');
+            unitModal.classList.add('modal-visible');
+            
+            // Apply scale animation after visibility is set
+            setTimeout(() => {
+                modalContainer.classList.remove('scale-95');
+                modalContainer.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Function to create the HTML for the portal (creates main subject buttons)
+        function createPortal() {
+            Object.keys(subjectData).forEach(key => {
+                const data = subjectData[key];
+
+                // Create the main card container
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300';
+
+                // Create the main subject button
+                const subjectButton = document.createElement('button');
+                subjectButton.className = 'glittering-blue-btn w-full text-left p-4 rounded-xl text-lg font-semibold tracking-wider uppercase focus:outline-none';
+                subjectButton.textContent = data.name;
+                
+                subjectButton.onclick = () => openSubjectModal(key);
+
+                // Assemble the card
+                subjectCard.appendChild(subjectButton);
+                portal.appendChild(subjectCard);
+            });
+        }
+
+        // Custom Message Box Function (Kept for external errors)
+        function showCustomMessage(message) {
+            let messageBox = document.getElementById('custom-message-box');
+            if (!messageBox) {
+                // ... (MessageBox implementation remains the same, but unused in this modal version)
+                // ...
+            }
+        }
+
+
+        // Initialize the portal when the script runs
+        createPortal();
+    </script>
+<br>
+<br>
+<br>
+<br>
+<footer>
+<h3><center> Developed by Yugandhar Pallapothula</center></h3>
+<h5><center>Batch 2k24- RGUKT SKLM</center></h5>
+</body>
+</html>
