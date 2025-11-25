@@ -2,269 +2,272 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Subject Content Access</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUC 2 SEM 2</title>
-    <!-- Tailwind CSS CDN for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-         /* Custom CSS for the light grey background */
-        body {
-            background-color:#F3FFF9;
-            font-family: 'Inter', 'Times now Roman';
+        /* --- CORE CSS (Background, Hover, Button, Footer, Text) --- */
+        
+        /* Base styles (Body Background and Text) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f6ff; color: #2d2d2d; }
+        
+        main { padding: 40px 20px; text-align: center; }
+        main p { font-size: 1.4rem; margin-bottom: 25px; font-weight: 600; color: #4b3b63; }
+        ul { list-style-type: none; padding: 0; max-width: 400px; margin: 0 auto; }
+
+        /* Subject Button Styles (Light Color Button) */
+        .subject-btn {
+            display: block; margin: 15px 0; padding: 15px; text-decoration: none; border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; font-size: 1.1rem; font-weight: 500; width: 100%; border: none;
+            cursor: pointer;
         }
 
-        /* Custom CSS for the "glittering blue" effect on the main buttons */
-        .glittering-blue-btn {
-            background-color:#B9F6CA; 
-            color: #000000;
-            transition: all 0.2s ease-in-out;
-            /* Simulating 'glittering' with a light text shadow for shine */
-            text-shadow: 0 0 5px rgba(255, 244, 255, 0.7),
-                         0 0 10px rgba(173, 216, 230, 0.5);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        /* Glittering Style adapted for the main buttons */
+        .glittering-subject-btn {
+            background-color: #E8E3F5; /* Light Lavender background */
+            color: #4b2e7a; /* Deep Purple text for contrast */
+            border-left: 6px solid #4b2e7a; /* Dark border for high contrast */
+            text-align: center;
+            /* Simulating 'glittering' with text shadow and box shadow */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 
+                        0 0 10px rgba(100, 70, 150, 0.1); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glittering-subject-btn:hover {
+            background-color: #DCD1F0; /* Slightly darker light lavender on hover */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), 0 0 20px #E8E3F5; /* Enhanced shadow and light glow */
+            transform: scale(1.03);
         }
 
-        .glittering-blue-btn:hover {
-            background-color: #D0FADE; 
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 0 20px #90CAF9; /* Increased shadow and light glow */
-            transform: translateY(-2px);
+        /* --- MODAL STRUCTURE STYLES (REQUIRED FOR OVERLAY) --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.75); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 9999;
+            visibility: hidden; opacity: 0; transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.show { visibility: visible; opacity: 1; }
+        .modal-content { max-width: 500px; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); transform: scale(0.9); transition: transform 0.3s ease-out; }
+        .modal-overlay.show .modal-content { transform: scale(1); }
+        .modal-inner-content { background-color: white; padding: 25px; border-radius: 10px; }
+
+        /* --- MODAL UNIT LINK STYLING --- */
+        /* Link styling inside the white box */
+        .unit-link-item a {
+            padding: 12px; margin: 5px 0; border-radius: 6px; text-decoration: none;  
+            color: #333333; /* Dark Charcoal Gray for text (Avoiding purple) */
+            background-color: #F1E9F5; /* Very light lavender background */
+            font-weight: 500; display: flex; justify-content: space-between; align-items: center; 
+            transition: background-color 0.2s ease;
+            width: 100%;
         }
 
-        /* --- MODAL COLOR PALETTE (Subject Specific Backgrounds) --- */
-        .bg-eng { background-color: #B3E5FC; }   /* Light Cyan/Blue */
-        .bg-tel { background-color: #FFECB3; }   /* Light Gold/Amber */
-        .bg-math { background-color: #E1BEE7; }  /* Pale Lavender/Purple */
-        .bg-phy { background-color: #C8E6C9; }   /* Light Sage Green */
-        .bg-it { background-color: #D7CCC8; }    /* Light Beige/Taupe */
-        .bg-chem { background-color: #9EEBCF; }  /* Refreshing Mint (User Request) */
-
-        /* --- MODAL ANIMATION STYLES --- */
-        .modal-hidden {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+        .unit-link-item a:hover {
+            background-color: #E6D9F0; /* Slightly darker lavender on hover */
         }
-        .modal-visible {
-            visibility: visible;
-            opacity: 1;
+        
+        /* --- FOOTER STYLES --- */
+        .credit-box { font-size: 0.8rem; color: #5a4a71; background-color: #f1ecfb; padding: 8px 12px; border-radius: 6px; text-align: center; margin: 20px auto; max-width: 300px; line-height: 1.4; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); }
+        footer { background-color: #e8e3f5; color: #4b3b63; text-align: center; padding: 30px 20px; margin-top: 40px; font-size: 0.95rem; border-top: 2px solid #cbb6e2; }
+        footer p { font-size: 20px; margin-bottom: 10px; font-weight: bold; }
+        .social-icons { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
+        .social-icons img { height: 20px; width: 20px; filter: grayscale(1); transition: transform 0.3s ease; }
+        .social-icons img:hover { transform: scale(1.1); }
+        .copyright { font-size: 12px; color: #444; }
+
+        @media (max-width: 600px) {
+            .subtitle { font-size: 1.6rem; }
         }
     </style>
-</head>
-<body class="min-h-screen p-4 sm:p-8">
-
-    <!-- Header (P2S2) -->
-    <header class="text-center mb-8">
-        <h1 class="text-5xl sm:text-5xl font-extrabold text-gray-800 tracking-tighter">PUC 2 SEM 2</h1>
-        <p class="text-gray-500 mt-2">Centralized Content Access Portal</p>
-    </header>
-
-    <!-- Main Content Grid -->
-    <main class="max-w-4xl mx-auto">
-        <div id="content-portal" class="space-y-4">
-            <!-- Subject buttons will be injected here by JavaScript -->
-        </div>
-    </main>
-    
-    <!-- Subject Units Modal (Overlay) -->
-    <div id="unit-modal" class="modal-hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
-        <div id="modal-content-container" class="max-w-xl w-full mx-auto rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300">
-            <!-- Modal content dynamically injected here -->
-        </div>
-    </div>
-
 
     <script>
-        // --- DATA STRUCTURE: Use 'files' array to manage specific PDFs and Titles ---
-        const subjectData = {
-            eng: { 
-                colorClass: 'bg-eng', 
-                name: 'English', 
-                files: [
-                    { title: 'Unit 1: Poetry Analysis & Context', url: 'https://example.com/pdfs/english/poetry_analysis.pdf' },
-                    { title: 'Unit 2: Creative Writing Prompts', url: 'https://example.com/pdfs/english/writing_prompts.pdf' },
-                    { title: 'Unit 3: Victorian Literature Summary', url: 'https://example.com/pdfs/english/victorian_lit.pdf' },
-                    { title: 'Unit 4: Essay Structure Guide', url: 'https://example.com/pdfs/english/essay_guide.pdf' },
-                    { title: 'Unit 5: Grammar and Syntax Check', url: 'https://example.com/pdfs/english/grammar_syntax.pdf' },
-                    { title: 'Unit 6: Speaking Exam Tips', url: 'https://example.com/pdfs/english/speaking_tips.pdf' }
-                ]
-            },
-            tel: { 
-                colorClass: 'bg-tel', 
-                name: 'Telugu', 
-                files: [
-                    { title: 'Unit 1: Basic Vocabulary', url: 'https://example.com/pdfs/telugu/vocab_basic.pdf' },
-                    { title: 'Unit 2: Grammar: Sandhulu', url: 'https://example.com/pdfs/telugu/sandhulu.pdf' },
-                    { title: 'Unit 3: Famous Poets', url: 'https://example.com/pdfs/telugu/poets_summary.pdf' },
-                    { title: 'Unit 4: Prose and Narrative', url: 'https://example.com/pdfs/telugu/prose.pdf' },
-                    { title: 'Unit 5: Exam Model Papers', url: 'https://example.com/pdfs/telugu/model_papers.pdf' },
-                    { title: 'Unit 6: Cultural Context', url: 'https://example.com/pdfs/telugu/culture.pdf' }
-                ]
-            },
-            math: { 
-                colorClass: 'bg-math', 
-                name: 'Mathematics', 
-                files: [
-                    { title: 'Unit 1: Calculus Differentiation', url: 'https://example.com/pdfs/math/calc_diff.pdf' },
-                    { title: 'Unit 2: Calculus Integration', url: 'https://example.com/pdfs/math/calc_int.pdf' },
-                    { title: 'Unit 3: Linear Algebra Matrices', url: 'https://example.com/pdfs/math/matrices.pdf' },
-                    { title: 'Unit 4: Statistics & Probability', url: 'https://example.com/pdfs/math/stats_prob.pdf' },
-                    { title: 'Unit 5: Vector Analysis', url: 'https://example.com/pdfs/math/vectors.pdf' },
-                    { title: 'Unit 6: Discrete Mathematics', url: 'https://example.com/pdfs/math/discrete.pdf' }
-                ]
-            },
-            phy: { 
-                colorClass: 'bg-phy', 
-                name: 'Physics', 
-                files: [
-                    { title: 'Unit 1: Quantum Mechanics Basics', url: 'https://example.com/pdfs/physics/quantum_basics.pdf' },
-                    { title: 'Unit 2: Thermodynamics Laws', url: 'https://example.com/pdfs/physics/thermo_laws.pdf' },
-                    { title: 'Unit 3: Optics and Lenses', url: 'https://example.com/pdfs/physics/optics.pdf' },
-                    { title: 'Unit 4: Electricity & Magnetism', url: 'https://example.com/pdfs/physics/electromagnetism.pdf' },
-                    { title: 'Unit 5: Nuclear Physics', url: 'https://example.com/pdfs/physics/nuclear_physics.pdf' },
-                    { title: 'Unit 6: Relativity and Space', url: 'https://example.com/pdfs/physics/relativity.pdf' }
-                ]
-            },
-            it: { 
-                colorClass: 'bg-it', 
-                name: 'Information Technology', 
-                files: [
-                    { title: 'Unit 1: Data Structures Overview', url: 'https://example.com/pdfs/it/data_structures.pdf' },
-                    { title: 'Unit 2: Network Protocols (TCP/IP)', url: 'https://example.com/pdfs/it/tcp_ip.pdf' },
-                    { title: 'Unit 3: Database Design (SQL)', url: 'https://example.com/pdfs/it/sql_design.pdf' },
-                    { title: 'Unit 4: Operating Systems Concepts', url: 'https://example.com/pdfs/it/os_concepts.pdf' },
-                    { title: 'Unit 5: Web Development Fundamentals', url: 'https://example.com/pdfs/it/web_fundamentals.pdf' },
-                    { title: 'Unit 6: Cybersecurity Principles', url: 'https://example.com/pdfs/it/cybersecurity.pdf' }
-                ]
-            },
-            chem: { 
-                colorClass: 'bg-chem', 
-                name: 'Chemistry', 
-                files: [
-                    { title: 'Unit 1: Organic Chemistry Alkanes', url: 'https://example.com/pdfs/chemistry/organic_alkanes.pdf' },
-                    { title: 'Unit 2: Inorganic Bonding', url: 'https://example.com/pdfs/chemistry/inorganic_bonding.pdf' },
-                    { title: 'Unit 3: Physical Chemistry Kinetics', url: 'https://example.com/pdfs/chemistry/kinetics.pdf' },
-                    { title: 'Unit 4: Electrochemistry', url: 'https://example.com/pdfs/chemistry/electrochemistry.pdf' },
-                    { title: 'Unit 5: Periodic Table Trends', url: 'https://example.com/pdfs/chemistry/periodic_trends.pdf' },
-                    { title: 'Unit 6: Laboratory Safety Manual', url: 'https://example.com/pdfs/chemistry/lab_safety.pdf' }
-                ]
-            }
+        // --- MODAL COLOR PALETTE (UNIQUE BACKGROUND COLORS - UPDATED) ---
+        const modalColors = {
+            eng: '#B0E0E6',  // Powder Blue
+            tel: '#F5DEB3',  // Pale Goldenrod
+            math: '#D8BFD8', // Thistle (Soft Lavender)
+            phy: '#A9D8AD',  // Soft Sage Green
+            it: '#ADD8E6',   // Light Blue
+            chem: '#F08080'  // Light Coral
         };
-        // NOTE: Replace the 'https://example.com/pdfs/...' URLs with your actual PDF links.
 
-        const portal = document.getElementById('content-portal');
-        const unitModal = document.getElementById('unit-modal');
-        const modalContainer = document.getElementById('modal-content-container');
+        // --- NEW: NEUTRAL COLOR FOR ALL MODAL TEXT/BUTTONS (Not Deep Violet) ---
+        const modalContentColor = '#333333'; // Dark Charcoal Gray
 
-        /**
-         * Closes the subject units modal with animation.
-         */
+        // --- DATA STRUCTURE: PDF links and Titles (UPDATED FOR PUC II SEMESTER 2) ---
+        const subjectData = {
+            eng: { key: 'eng', name: 'English-IV', files: [
+                { title: 'The Adventures of Tom Sawyer (Ch. 1–4) & List of Characters', url: 'https://example.com/pdfs/eng/tom_sawyer_unit1.pdf' },
+                { title: 'The Adventures of Tom Sawyer (Ch. 5–8 & Summary)', url: 'https://example.com/pdfs/eng/tom_sawyer_unit2.pdf' },
+                { title: 'The Tiger King (Prose) & Describing a Process', url: 'https://example.com/pdfs/eng/tiger_king.pdf' },
+                { title: 'Completing a Form & Language of Advertisements', url: 'https://example.com/pdfs/eng/adverts_forms.pdf' },
+                { title: 'Learning from the West (Prose) & Curriculum Vitae (CV)', url: 'https://example.com/pdfs/eng/cv_learning.pdf' },
+                { title: 'Any Woman (Poem) & Vocabulary/Comprehension', url: 'https://example.com/pdfs/eng/any_woman_vocab.pdf' }
+            ]},
+            tel: { key: 'tel', name: 'Telugu-IV', files: [
+                { title: 'తెలుగు జాతి విలేకం (81-100 పద్యాలు)', url: 'https://example.com/pdfs/tel/unit1_padhyam.pdf' },
+                { title: 'తెలుగు జాతి విలేకం (141-160 పద్యాలు)', url: 'https://example.com/pdfs/tel/unit2_padhyam.pdf' },
+                { title: 'ప్రహ్లాదుని విద్య – బమ్మెర పోతన', url: 'https://example.com/pdfs/tel/prahladuni_vidya.pdf' },
+                { title: 'అలంకారాలు (శబ్ద & అర్థాలంకారాలు)', url: 'https://example.com/pdfs/tel/alankaralu.pdf' },
+                { title: 'ఛందస్సు (జాతులు & ఉపజాతులు)', url: 'https://example.com/pdfs/tel/chandassu.pdf' },
+                { title: 'వ్యాసం & వ్యాసాలు (పర్యావరణం, విజ్ఞానం, మొదలైనవి)', url: 'https://example.com/pdfs/tel/vyasalu.pdf' }
+            ]},
+            math: { key: 'math', name: 'Mathematics-IV', files: [
+                { title: ' Methods of Integration (Basic Formulas, By Parts, Partial Fractions)', url: 'https://example.com/pdfs/math/methods_integration.pdf' },
+                { title: 'Conic Sections (Circle, Parabola, Ellipse, Hyperbola)', url: 'https://example.com/pdfs/math/conic_sections.pdf' },
+                { title: ' Parametrization & Polar Coordinates (Graphing, Area, Length)', url: 'https://example.com/pdfs/math/polar_coordinates.pdf' },
+                { title: ' Matrices (Algebra, Determinant, Rank, Linear Equations)', url: 'https://example.com/pdfs/math/matrices_rank.pdf' },
+                { title: 'Infinite Series (Binomial, Geometric, Logarithmic)', url: 'https://example.com/pdfs/math/infinite_series.pdf' },
+                { title: ' Vector Algebra (Dot Product, Cross Product, 3D Vectors)', url: 'https://example.com/pdfs/math/vector_algebra.pdf' }
+            ]},
+            phy: { key: 'phy', name: 'Physics-IV', files: [
+                { title: 'Electromagnetic Induction & Alternating currents', url: 'https://example.com/pdfs/phy/emi_ac.pdf' },
+                { title: 'Electromagnetic Waves', url: 'https://example.com/pdfs/phy/em_waves.pdf' },
+                { title: ' Ray Optics and Optical instruments', url: 'https://example.com/pdfs/phy/ray_optics.pdf' },
+                { title: ' Wave Optics', url: 'https://example.com/pdfs/phy/wave_optics.pdf' },
+                { title: ' Quantum Physics (Photoelectric Effect, Nuclear Physics)', url: 'https://example.com/pdfs/phy/quantum_physics.pdf' },
+                { title: 'Semiconductor Electronics (Diode, Zener, Transistor)', url: 'https://example.com/pdfs/phy/semiconductors.pdf' }
+            ]},
+            it: { key: 'it', name: 'Python Programming Language', files: [
+                { title: 'Introduction and Features of Python, Operators', url: 'https://example.com/pdfs/it/python_intro.pdf' },
+                { title: ' Data Types, I/O, Errors and Conditional Control Structures', url: 'https://example.com/pdfs/it/python_datatypes.pdf' },
+                { title: ' Loop Control Statements and Functions', url: 'https://example.com/pdfs/it/python_loops.pdf' },
+                { title: ' Strings (Indexing, Operations, Built-in Functions)', url: 'https://example.com/pdfs/it/python_strings.pdf' },
+                { title: ' List and Tuples (Creation, Indexing, Modifications)', url: 'https://example.com/pdfs/it/python_lists_tuples.pdf' },
+                { title: 'Dictionary and Exception Handling', url: 'https://example.com/pdfs/it/python_dicts_files.pdf' }
+            ]},
+            chem: { key: 'chem', name: 'Chemistry-IV', files: [
+                { title: ' Aldehydes and Ketones (Nomenclature, Reactions)', url: 'https://example.com/pdfs/chem/aldehydes_ketones.pdf' },
+                { title: 'Carboxylic acids and Amines (Preparation, Acidity/Basicity)', url: 'https://example.com/pdfs/chem/acids_amines.pdf' },
+                { title: ' d-block elements and Coordination compounds', url: 'https://example.com/pdfs/chem/dblock_coordination.pdf' },
+                { title: 'Surface Chemistry (Adsorption, Colloids, Emulsions)', url: 'https://example.com/pdfs/chem/surface_chemistry.pdf' },
+                { title: ' Metallurgy (Concentration, Extraction of Fe, Cu, Al)', url: 'https://example.com/pdfs/chem/metallurgy.pdf' },
+                { title: ' Polymers (Classification, Rubber, Bakelite)', url: 'https://example.com/pdfs/chem/polymers.pdf' }
+            ]}
+        };
+        
+        // --- MODAL FUNCTIONS (Dynamic Styling via JS) ---
+
         function closeSubjectModal() {
-            modalContainer.classList.remove('scale-100');
-            modalContainer.classList.add('scale-95');
-            unitModal.classList.remove('modal-visible');
-            unitModal.classList.add('modal-hidden');
+            const modalOverlay = document.getElementById('subject-modal-overlay');
+            const modalContent = document.getElementById('modal-content-container');
+            modalContent.classList.remove('show');
+            modalOverlay.classList.remove("show");
         }
 
-        /**
-         * Opens the modal and populates it with unit links for the selected subject.
-         * NOW USES THE STRUCTURED 'files' ARRAY.
-         */
         function openSubjectModal(subjectKey) {
             const data = subjectData[subjectKey];
+            const color = modalColors[subjectKey];
+            const contentColor = modalContentColor; // Dark Charcoal Gray for text/icons
+            const modalOverlay = document.getElementById('subject-modal-overlay');
+            const modalContent = document.getElementById('modal-content-container');
 
-            // 1. Generate the HTML content for the units (PDF links)
+            // --- 1. Generate the HTML content for the units (PDF links) ---
             let unitHtml = '';
             
-            // Loop over the specific file data instead of just counting units
             data.files.forEach((file, index) => {
-                const unitNumber = index + 1; // 1-based index for display
+                const unitNumber = index + 1;
                 const pdfUrl = file.url;
                 const unitTitle = file.title;
                 
+                // Uses the specific CSS class 'unit-link-item a'
                 unitHtml += `
-                    <li class="border-b border-gray-200 last:border-b-0">
-                        <a href="${pdfUrl}" target="_blank" class="block p-4 text-gray-800 text-lg hover:bg-white transition-colors duration-200 rounded-lg flex justify-between items-center">
-                            <span class="font-bold mr-4">Unit ${unitNumber}:</span> ${unitTitle}
-                            <!-- PDF Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 flex-shrink-0 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <li class="unit-link-item">
+                        <a href="${pdfUrl}" target="_blank">
+                            <span style="font-weight: 600;">Unit ${unitNumber}:</span> ${unitTitle}
+                            <!-- PDF Icon (Uses the Dark Charcoal color) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 20 20" fill="currentColor" style="color:${contentColor};">
                                 <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 10a1 1 0 000 2h8a1 1 0 100-2H6zm0-3a1 1 0 000 2h8a1 1 0 100-2H6zm0-3a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                             </svg>
                         </a>
                     </li>
                 `;
             });
-
-            // 2. Generate the full Modal content, applying the unique color class
-            const modalContentHtml = `
-                <div class="${data.colorClass} p-6 h-full">
-                    <div class="bg-white p-6 rounded-xl shadow-xl">
-                        <h1 class="text-3xl font-extrabold mb-2 text-gray-800 border-b pb-2">${data.name} Units</h1>
-                        <p class="text-gray-600 mb-6">Select a unit to view the PDF content:</p>
-                        <div class="rounded-lg overflow-hidden border border-gray-300">
-                            <ul class="list-none p-0 divide-y divide-gray-200">
-                                ${unitHtml}
-                            </ul>
-                        </div>
-                        <div class="mt-8 text-center">
-                            <button onclick="closeSubjectModal()" class="bg-red-500 text-white p-3 px-6 rounded-xl hover:bg-red-600 transition-colors shadow-lg">Close Unit List</button>
-                        </div>
+            
+            // --- 2. Generate the full Modal content (REMOVED ACCIDENTAL COMMENT TEXT) ---
+            const modalInnerHtml = `
+                <div style="background-color: ${color}; padding: 25px;"> 
+                    <div style="background-color: white; padding: 25px; border-radius: 10px;">
+                        <h2 style="font-size:1.5rem; color:${contentColor}; /* DARK GRAY HEADER */ border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">${data.name} Units</h2>
+                        <ul style="list-style: none; padding: 0;">
+                            ${unitHtml}
+                        </ul>
+                        <button onclick="closeSubjectModal()" style="background-color: red; /* RED CLOSE BUTTON */ color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background-color 0.2s; margin-top: 20px; display: block; width: 100%;">Close</button>
                     </div>
                 </div>
             `;
             
-            // 3. Populate the modal container and display it
-            modalContainer.innerHTML = modalContentHtml;
-            unitModal.classList.remove('modal-hidden');
-            unitModal.classList.add('modal-visible');
-            
-            // Apply scale animation after visibility is set
-            setTimeout(() => {
-                modalContainer.classList.remove('scale-95');
-                modalContainer.classList.add('scale-100');
-            }, 10);
+            // 3. Populate and show the modal
+            modalContent.innerHTML = modalInnerHtml;
+            modalOverlay.classList.add('show');
+            setTimeout(() => { modalContent.classList.add('show'); }, 10);
         }
 
-        // Function to create the HTML for the portal (creates main subject buttons)
-        function createPortal() {
+        // --- PORTAL INITIALIZATION ---
+        function createSubjectButtons(subjectList) {
             Object.keys(subjectData).forEach(key => {
                 const data = subjectData[key];
-
-                // Create the main card container
-                const subjectCard = document.createElement('div');
-                subjectCard.className = 'subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300';
-
-                // Create the main subject button
-                const subjectButton = document.createElement('button');
-                subjectButton.className = 'glittering-blue-btn w-full text-left p-4 rounded-xl text-lg font-semibold tracking-wider uppercase focus:outline-none';
-                subjectButton.textContent = data.name;
                 
+                const listItem = document.createElement('li');
+                listItem.classList.add('subject-item');
+                
+                const subjectButton = document.createElement('button');
+                subjectButton.className = 'subject-btn glittering-subject-btn';
+                subjectButton.textContent = data.name;
                 subjectButton.onclick = () => openSubjectModal(key);
 
-                // Assemble the card
-                subjectCard.appendChild(subjectButton);
-                portal.appendChild(subjectCard);
+                listItem.appendChild(subjectButton);
+                subjectList.appendChild(listItem); // Use appendChild to maintain correct order
             });
         }
-
-        // Custom Message Box Function (Kept for external errors)
-        function showCustomMessage(message) {
-            let messageBox = document.getElementById('custom-message-box');
-            if (!messageBox) {
-                // ... (MessageBox implementation remains the same, but unused in this modal version)
-                // ...
+        
+        // Initialize the portal when the page loads
+        window.onload = function() {
+            const subjectList = document.getElementById('subject-list');
+            
+            if (subjectList) {
+                createSubjectButtons(subjectList); 
             }
-        }
-
-
-        // Initialize the portal when the script runs
-        createPortal();
+        };
     </script>
-<br>
-<br>
-<br>
-<br>
+</head>
+
+<body>
+
+<main>
+    <h1 style="font-size: 2rem; font-weight: bold; color: #46286b; text-align: center; margin-bottom: 25px;">PUC II SEMESTER 2 SUBJECT ACCESS PORTAL</h1>
+    <p>Select a Subject to view Units</p>
+    <ul id="subject-list">
+        <!-- Subject buttons are dynamically injected here -->
+    </ul>
+</main>
+
+<div class="credit-box">
+    <b> <i>Developed by Yugandhar Pallapothula</i></b><br>
+    <span><i>2024 batch - RGUKT Srikakulam</i></span>
+</div>
+
+<!-- --- MODAL STRUCTURE --- -->
+<div id="subject-modal-overlay" class="modal-overlay" onclick="closeSubjectModal()">
+    <div id="modal-content-container" class="modal-content" onclick="event.stopPropagation()">
+        <!-- Content injected here -->
+    </div>
+</div>
+<!-- --- END MODAL STRUCTURE --- -->
+
+
 <footer>
-<h3><center> Developed by Yugandhar Pallapothula</center></h3>
-<h5><center>Batch 2k24- RGUKT SKLM</center></h5>
+    <p>Made with <span style="color: red;">❤️</span> for Rguktians</p>
+    <div class="social-icons">
+        <a href="https://www.youtube.com/@yvdp07" target="_blank">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com/yugandharvdp_2007" target="_blank">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+        </a>
+    </div>
+    <p class="copyright">&copy; 2025 Yugandhar Pallapothula. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
