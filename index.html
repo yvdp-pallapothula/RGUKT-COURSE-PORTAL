@@ -38,7 +38,7 @@
     .highlight-blink-scroll {
       display: inline-block;
       white-space: nowrap;
-      font-weight: bold;
+      font-weight: 500; /* Slightly reduced boldness */
       font-size: 1rem;
       animation: moveText 10s linear infinite, blinkTextColor 1s infinite;
     }
@@ -88,7 +88,7 @@
     }
 
     main {
-      padding: 40px 20px;
+      padding: 20px 20px; /* Reduced main vertical padding */
       text-align: center;
       overflow: visible; 
     }
@@ -96,7 +96,7 @@
     /* --- Landing Page Specific Styles --- */
     #landing-page {
         max-width: 500px;
-        margin: 50px auto 0;
+        margin: 20px auto 0; /* Adjusted margin */
         padding: 20px;
         background-color: #fff;
         border-radius: 12px;
@@ -106,6 +106,7 @@
         color: #9c7dd8;
         font-size: 1.8rem;
         margin-bottom: 15px;
+        font-weight: 600;
     }
     #landing-page p {
         font-size: 1rem;
@@ -123,10 +124,7 @@
         font-size: 1.1rem;
         cursor: pointer;
         transition: background-color 0.3s, transform 0.3s;
-    }
-    .access-btn:hover {
-        background-color: #3d2461;
-        transform: scale(1.05);
+        font-weight: 600;
     }
 
     /* --- CONTENT VIEW (Subject Menu) Styles --- */
@@ -234,11 +232,6 @@
       text-align: left;
     }
     
-    .dropdown-content a:hover {
-        background-color: #dcd1f0;
-        transform: scale(1.02);
-    }
-
     /* --- Utility/Popup Styles --- */
     #credit-box {
       font-size: 0.8rem;
@@ -256,7 +249,6 @@
     
     /* Popup container */
     #selectionPopup {
-      /* This is fixed position, but we rely on inline style for display:none */
       position: fixed;
       width: 300px;
       top: 100px;
@@ -316,9 +308,9 @@
 
     /* Footer inner paragraph style (not bolded) */
     footer p {
-      font-size: 20px;
+      font-size: 0.95rem; /* Reduced font size for footer p */
       margin-bottom: 10px;
-      font-weight: normal; 
+      font-weight: 500; 
     }
     
     .copyright {
@@ -341,11 +333,44 @@
       transition: transform 0.3s ease;
     }
     .social-icons img:hover {
-        filter: none; /* Removes grayscale on hover for color icons */
+        filter: none; 
         transform: scale(1.1);
     }
 
-    /* --- Mobile Media Query (Vertical Layout) --- */
+    /* --- MOBILE SPECIFIC STYLES (Max-width 600px) --- */
+    @media (max-width: 600px) {
+        
+      /* --- Heading Sizes --- */
+      .subtitle {
+        font-size: 1.6rem; /* Reduced from 2rem */
+      }
+      #landing-page h2 {
+        font-size: 1.5rem; /* Reduced from 1.8rem */
+      }
+      header {
+        padding-top: 20px; /* Reduced header padding */
+      }
+      
+      /* --- Menu Button Sizes --- */
+      #content-view .dropdown-btn {
+        font-size: 1rem; /* Reduced from 1.1rem */
+        padding: 12px 15px; /* Reduced button padding */
+      }
+      
+      /* --- Link Sizes --- */
+      .dropdown-content a {
+        font-size: 1rem; /* Reduced from 1.1rem */
+        padding: 12px 15px; /* Reduced link padding */
+        margin: 5px 0; /* Adjusted margin */
+      }
+
+      /* --- Footer Adjustments --- */
+      footer p {
+        font-size: 0.9rem; /* Reduced from 0.95rem */
+      }
+    }
+    
+    /* --- MOBILE LAYOUT (Max-width 850px) --- */
     @media (max-width: 850px) {
       #content-view ul {
         display: block;
@@ -373,14 +398,12 @@
       }
       
       /* Mobile Popup Position */
-      @media (max-width: 600px) {
-        #selectionPopup {
+      #selectionPopup {
           width: 90%;
           left: 5%;
           right: 5%;
           top: auto;
           bottom: 20px;
-        }
       }
     }
   </style>
@@ -399,7 +422,7 @@
         document.getElementById('landing-page').style.display = 'none';
         document.getElementById('content-view').style.display = 'block';
         
-        // CRITICAL FIX: SHOW DEVELOPER CREDIT, WHATSAPP CONTACT, AND FOOTER
+        // SHOW DEVELOPER CREDIT, WHATSAPP CONTACT, AND FOOTER
         document.getElementById('credit-box').style.display = 'block';
         document.getElementById('footer-contact').style.display = 'block';
         document.querySelector('footer').style.display = 'block'; 
@@ -461,7 +484,7 @@
 <body>
 
 <div class="highlight-container">
-  
+ 
 </div>
 
   <header>
@@ -545,10 +568,10 @@
   <footer>
     <p>Made with <span style="color: red;">❤️</span> for Rguktians</p>
     <div class="social-icons">
-      <a href="https://www.youtube.com/@its_me_yugandhar" target="_blank">
+      <a href="https://www.youtube.com/@yvdp07" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
       </a>
-      <a href="https://www.instagram.com/@yugandhar_pallapothula" target="_blank">
+      <a href="https://www.instagram.com/@yugandharvdp_2007" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
       </a>
     </div>
