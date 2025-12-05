@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PUC 2 SEM 2</title>
+  <title>PUC 2 SEM 2 - Subjects</title>
   <style>
     /* --- Base Styles --- */
     * {
@@ -12,7 +12,7 @@
       box-sizing: border-box;
     }
 
-    /* CRITICAL: Allow document scrolling */
+    /* Allow document scrolling */
     html, body {
       height: auto; 
       overflow: visible; 
@@ -29,17 +29,34 @@
       padding: 40px 20px 30px;
       text-align: center;
     }
+    
+    h1 {
+        font-size: 2.2rem;
+        color: #46286b;
+    }
+    h2 {
+        font-size: 1.2rem;
+        color: #6e4c9e;
+        font-weight: 500;
+    }
 
     main {
       padding: 40px 20px;
       text-align: center;
       overflow: visible; 
     }
+    
+    main p {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+        color: #4b3b63;
+    }
 
     /* --- List Container for Horizontal Alignment (PC Layout) --- */
     ul {
       list-style-type: none;
-      max-width: 840px;  
+      max-width: 840px; 
       margin: 0 auto;
       padding: 0;
       
@@ -49,7 +66,7 @@
     }
     
     /* --- List Item (Subject Button Container) --- */
-    .dropdown1, .dropdown2, .dropdown3, .dropdown4, .dropdown5, .dropdown6 {
+    .dropdown {
       position: relative;
       width: 49%; 
       margin-bottom: 20px; 
@@ -57,35 +74,32 @@
     }
 
     /* --- Subject Button Styles --- */
-    .dropdown-btn1, .dropdown-btn2, .dropdown-btn3, .dropdown-btn4, .dropdown-btn5, .dropdown-btn6 {
+    .dropdown-btn {
       display: block;
       width: 100%;
       background-color: #e8e3f5;
       padding: 15px;
       color: #4b2e7a;
+      border-left: 6px solid #9c7dd8;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
       font-size: 1.1rem;
       font-weight: 500;
       text-align: center;
-      border: none;
-      border-left: 6px solid #9c7dd8;
-      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 0;
       position: relative; 
       z-index: 20; 
+      border: none;
     }
     
-    .dropdown-btn1:hover, .dropdown-btn2:hover, .dropdown-btn3:hover, 
-    .dropdown-btn4:hover, .dropdown-btn5:hover, .dropdown-btn6:hover,
-    .popup-option:hover { 
+    .dropdown-btn:hover { 
       background-color: #dcd1f0;
       transform: scale(1.02);
     }
 
-    /* --- Dropdown Content Container (Hidden State) --- */
-    .dropdown-content1, .dropdown-content2, .dropdown-content3, 
-    .dropdown-content4, .dropdown-content5, .dropdown-content6 {
+    /* Dropdown Content Container (Hidden State) */
+    .dropdown-content {
       background-color: transparent; 
       width: 300px; 
       height: auto;
@@ -100,36 +114,33 @@
       transition: all 0.3s ease;
     }
     
-    /* --- Positioning for Left Column Subjects (1, 3, 5) - Opens to the LEFT --- */
-    .dropdown1 .dropdown-content1, 
-    .dropdown3 .dropdown-content3, 
-    .dropdown5 .dropdown-content5 {
+    /* --- CRITICAL: Positioning for Horizontal Menus (PC) --- */
+
+    /* Left Column Subjects (Odd-numbered) - Opens to the LEFT */
+    .dropdown:nth-child(odd) .dropdown-content {
         right: 100%; 
         padding-right: 10px; 
+        left: auto;
+        padding-left: 0;
     }
 
-    /* --- Positioning for Right Column Subjects (2, 4, 6) - Opens to the RIGHT --- */
-    .dropdown2 .dropdown-content2, 
-    .dropdown4 .dropdown-content4, 
-    .dropdown6 .dropdown-content6 {
+    /* Right Column Subjects (Even-numbered) - Opens to the RIGHT */
+    .dropdown:nth-child(even) .dropdown-content {
         left: 100%; 
         padding-left: 10px; 
+        right: auto;
+        padding-right: 0;
     }
 
-    /* --- Active State (Visible and Expanded) --- */
-    .dropdown-content1.show,
-    .dropdown-content2.show,
-    .dropdown-content3.show,
-    .dropdown-content4.show,
-    .dropdown-content5.show,
-    .dropdown-content6.show {
+
+    /* Active state using a generic 'show' class */
+    .dropdown-content.show {
       max-height: 500px; 
       opacity: 1; 
     }
 
-    /* --- Lesson Link Styles (Individual Boxes) --- */
-    .dropdown-content1 a, .dropdown-content2 a, .dropdown-content3 a, 
-    .dropdown-content4 a, .dropdown-content5 a, .dropdown-content6 a {
+    /* Lesson Link Styles (Individual Boxes) */
+    .dropdown-content a {
       display: block;
       background-color: #e8e3f5; 
       margin: 5px 0; 
@@ -145,10 +156,56 @@
       text-align: left;
     }
     
-    .dropdown-content1 a:hover, .dropdown-content2 a:hover, .dropdown-content3 a:hover, 
-    .dropdown-content4 a:hover, .dropdown-content5 a:hover, .dropdown-content6 a:hover {
+    .dropdown-content a:hover {
         background-color: #dcd1f0;
         transform: scale(1.02);
+    }
+
+    /* --- Popup/Modal Styles --- */
+    .modal {
+      display: none; /* Keep modal hidden by default */
+      position: fixed; 
+      z-index: 1000; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 25px;
+      border: 1px solid #888;
+      width: 80%; 
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .popup-option {
+      display: block;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #e8e3f5;
+      color: #4b2e7a;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: 1px solid #9c7dd8;
+    }
+    
+    .close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      transition: color 0.3s;
+      cursor: pointer;
     }
 
     /* --- Footer Styles --- */
@@ -162,11 +219,16 @@
       margin-top: 40px;
     }
 
-    /* Footer inner paragraph style (not bolded) */
     footer p {
-      font-size: 20px; /* Kept font size consistent for the heart message */
+      font-size: 0.95rem;
       margin-bottom: 10px;
       font-weight: normal; 
+    }
+    
+    .copyright {
+      font-size: 12px;
+      color: #444;
+      font-weight: normal;
     }
     
     /* Social media icons container */
@@ -186,79 +248,40 @@
         filter: none; 
         transform: scale(1.1);
     }
-    .copyright {
-      font-size: 12px;
-      color: #444;
-      font-weight: normal;
-    }
 
-    /* --- Popup/Modal Styles (for completeness) --- */
-    .modal {
-      position: fixed; 
-      z-index: 1000; 
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      overflow: auto; 
-      background-color: rgba(0,0,0,0.4);
-    }
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 25px;
-      border: 1px solid #888;
-      width: 80%; 
-      max-width: 400px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    .popup-option {
-      display: block;
-      padding: 12px;
-      margin: 10px 0;
-      background-color: #e8e3f5;
-      color: #4b2e7a;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      border: 1px solid #9c7dd8;
-    }
-    .close-btn {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      transition: color 0.3s;
-      cursor: pointer;
-    }
-    
     /* --- MOBILE SPECIFIC STYLES (Max-width 600px) --- */
     @media (max-width: 600px) {
+      /* Reduce size of main heading elements */
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1rem; }
+      
       .dropdown-content a {
         font-size: 1rem;
         padding: 12px 15px; 
         margin: 5px 0; 
       }
+      
+      /* Further reduce main content button size */
+      .dropdown-btn {
+        font-size: 1rem;
+        padding: 12px 15px;
+      }
     }
     
     /* --- MOBILE LAYOUT (Max-width 850px) --- */
     @media (max-width: 850px) {
-      #content-view ul {
+      ul {
         display: block;
         max-width: 400px; 
       }
       
-      .dropdown1, .dropdown2, .dropdown3, .dropdown4, .dropdown5, .dropdown6 {
+      .dropdown {
         width: 100%;
         margin-bottom: 15px; 
       }
 
-      /* Revert to vertical open for mobile and remove directional positioning */
-      .dropdown-content1, .dropdown-content2, .dropdown-content3, 
-      .dropdown-content4, .dropdown-content5, .dropdown-content6 {
+      /* Revert to vertical open for mobile */
+      .dropdown-content {
         position: static;
         width: 100%;
         padding-left: 0;
@@ -268,106 +291,191 @@
         left: auto;  
       }
       
-      .dropdown-content1 a, .dropdown-content2 a, .dropdown-content3 a, 
-      .dropdown-content4 a, .dropdown-content5 a, .dropdown-content6 a {
+      .dropdown-content a {
         margin: 10px 0; 
       }
     }
   </style>
+
+  <script>
+    // --- GLOBAL FUNCTIONS ---
+    function toggleDropdown(id) {
+      document.getElementById(id).classList.toggle("show");
+    }
+
+    function closeModal() {
+      document.getElementById("contentModal").style.display = "none";
+    }
+
+    // --- Document Ready Logic ---
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Lesson Popup Initialization ---
+        const modal = document.getElementById("contentModal");
+        const lessonTitle = document.getElementById("lessonTitle");
+        const ncertLink = document.getElementById("ncertLink");
+        const contentLink = document.getElementById("contentLink");
+        const analysisLink = document.getElementById("analysisLink"); 
+        const lessonLinks = document.querySelectorAll('.lesson-link');
+
+        // Function to check if the subject is Physics or Chemistry
+        function isScienceSubject(element) {
+            // Traverse up to find the button text
+            const listItem = element.closest('li');
+            if (!listItem) return false;
+            
+            const buttonText = listItem.querySelector('.dropdown-btn').textContent;
+            return buttonText.includes('Physics') || buttonText.includes('Chemistry');
+        }
+
+        // UPDATED openModal function
+        function openModal(lessonName, ncertUrl, contentUrl, notesUrl, isScience) {
+            lessonTitle.textContent = lessonName;
+            
+            // 1. Set visibility and URL for NCERT link
+            if (isScience) {
+                ncertLink.style.display = 'block';
+                ncertLink.href = ncertUrl; 
+            } else {
+                ncertLink.style.display = 'none';
+                ncertLink.href = '#'; 
+            }
+            
+            // 2. Set other links
+            contentLink.href = contentUrl;
+            
+
+            modal.style.display = "block";
+        }
+        
+        lessonLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                const isScience = isScienceSubject(this); // Check if Physics/Chemistry
+                const name = this.getAttribute('data-lesson-name');
+                
+                // Retrieve URLs. We use '#' as a fallback if the attribute is missing 
+                const ncertUrl = this.getAttribute('data-ncert-url') || '#'; 
+                const contentUrl = this.getAttribute('data-content-url') || '#'; 
+                const notesUrl = this.getAttribute('data-notes-url') || '#'; 
+                
+                // Pass all parameters to the modal function
+                openModal(name, ncertUrl, contentUrl, notesUrl, isScience);
+            });
+        });
+        
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    });
+  </script>
 </head>
 
 <body>
   <header>
     <h1>PUC 2 SEM 2</h1>
-    <h2>(content portal)</h2>
+    <h2>(Student Course Portal)</h2>
   </header>
 
   <main>
+    <p>Select Subject Unit</p>
     <ul>
       
-      <li class="dropdown1">
-        <button class="dropdown-btn1" onclick="toggleDropdown('dropdownMenu1')">English - IV</button>
-        <div id="dropdownMenu1" class="dropdown-content1">
-          <a href="#" class="lesson-link" data-lesson-name="Tom Sawyer (Ch. 1–4)" data-link-url="EnglishIV_Unit1.pdf">UNIT-I: Tom Sawyer (Ch. 1–4)</a>
-          <a href="#" class="lesson-link" data-lesson-name="Tom Sawyer (Ch. 5–8)" data-link-url="EnglishIV_Unit2.pdf">UNIT-II: Tom Sawyer (Ch. 5–8)</a>
-          <a href="#" class="lesson-link" data-lesson-name="Tiger King & Ads-I" data-link-url="EnglishIV_Unit3.pdf">UNIT-III: Tiger King & Advertisements – I</a>
-          <a href="#" class="lesson-link" data-lesson-name="Form & Ads-II" data-link-url="EnglishIV_Unit4.pdf">UNIT-IV: Form Completion & Advertisements – II</a>
-          <a href="#" class="lesson-link" data-lesson-name="Learning from the West & CV" data-link-url="EnglishIV_Unit5.pdf">UNIT-V: Learning from the West & CV/Letter</a>
-          <a href="#" class="lesson-link" data-lesson-name="Any Woman (Poem)" data-link-url="EnglishIV_Unit6.pdf">UNIT-VI: Any Woman (Poem)</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu1')">English - IV</button>
+        <div id="dropdownMenu1" class="dropdown-content">
+          
+<a href="#" class="lesson-link" data-lesson-name="Tom Sawyer " data-content-url="Content_EnglishIV_Unit1.pdf" >Tom Sawyer (Ch. 1–4)</a>
+<a href="#" class="lesson-link" data-lesson-name="Tom Sawyer " data-content-url="Content_EnglishIV_Unit1.pdf" >Tom Sawyer (Ch. 1–4)</a>
+          <a href="#" class="lesson-link" data-lesson-name="passages " data-content-url="https://drive.google.com/file/d/1rcxnlsnUe6NCsI4d-y3Psu-WcrwWCss4/view?usp=drivesdk">Comprehension Passages</a>
+          <a href="#" class="lesson-link" data-lesson-name="Tiger King " data-content-url="https://drive.google.com/file/d/1sMclWPjwGxozklQp7a2mLswQ_t3PQkhe/view?usp=drivesdk" >Tiger King </a>
+          <a href="#" class="lesson-link" data-lesson-name="completing Forms" data-content-url="https://drive.google.com/file/d/1sVCYAELTtU7QLGuCscBVwbT1tRAAioE5/view?usp=drivesdk" >Completing Forms</a>
+          <a href="#" class="lesson-link" data-lesson-name="Learning from the West" data-content-url="https://drive.google.com/file/d/1rlSEXc7RWA13o20DvgvgbNEUnhUz0viY/view?usp=drivesdk" Learning from the West</a>
+          <a href="#" class="lesson-link" data-lesson-name="Any Woman (Poem)" data-content-url="https://drive.google.com/file/d/1s34VmkXi1Gin1K0b6GjxtpXiW7_HG7V0/view?usp=drivesdk" >Any Woman (Poem)</a>
+<a href="#" class="lesson-link" data-lesson-name="advertisements" data-content-url="https://drive.google.com/file/d/1sS8gFWDa4bn6JyCamMy_ffVqhhRRQV5E/view?usp=drivesdk" >language of Advertisements</a>
+
+<a href="#" class="lesson-link" data-lesson-name="" data-content-url="https://drive.google.com/file/d/1rZv_6OfYZIX1USpMLuE7BXJVvttI8rFR/view?usp=drivesdk" >Vocabulary</a>
+
         </div>
       </li>
       
-      <li class="dropdown2">
-        <button class="dropdown-btn2" onclick="toggleDropdown('dropdownMenu2')">Mathematics - IV</button>
-        <div id="dropdownMenu2" class="dropdown-content2">
-          <a href="#" class="lesson-link" data-lesson-name="Methods of Integration" data-link-url="MathsIV_Unit1.pdf">UNIT-I: Methods of Integration</a>
-          <a href="#" class="lesson-link" data-lesson-name="Conic Sections" data-link-url="MathsIV_Unit2.pdf">UNIT-II: Conic Sections</a>
-          <a href="#" class="lesson-link" data-lesson-name="Parametrization & Polar Coordinates" data-link-url="MathsIV_Unit3.pdf">UNIT-III: Parametrization & Polar Coordinates</a>
-          <a href="#" class="lesson-link" data-lesson-name="Matrices" data-link-url="MathsIV_Unit4.pdf">UNIT-IV: Matrices</a>
-          <a href="#" class="lesson-link" data-lesson-name="Infinite Series" data-link-url="MathsIV_Unit5.pdf">UNIT-V: Infinite Series</a>
-          <a href="#" class="lesson-link" data-lesson-name="Vector Algebra" data-link-url="MathsIV_Unit6.pdf">UNIT-VI: Vector Algebra</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu2')">Mathematics - IV</button>
+        <div id="dropdownMenu2" class="dropdown-content">
+          <a href="#" class="lesson-link" data-lesson-name="Methods of Integration" data-content-url="Unit-1.pdf" data-notes-url="https://drive.google.com/file/d/1--1RGVDdP1z4YZ8wEUYU7mgKrjq32heW/view?usp=drivesdk"> Methods of Integration</a>
+          <a href="#" class="lesson-link" data-lesson-name="Conic Sections" data-content-url="Unit-2.pdf" data-notes-url="https://drive.google.com/file/d/1-0jU9PQnPKDPjdvqGJg-ppuapb1Ar5vC/view?usp=drivesdk">Conic Sections</a>
+          <a href="#" class="lesson-link" data-lesson-name="Parametrization & Polar Coordinates" data-content-url="Parametrization and Polar Coordinates.pdf" data-notes-url="https://drive.google.com/file/d/1-1AySDEmDjGFtk9yjYcXie6RC1e9CuFY/view?usp=drivesdk">Parametrization & Polar Coordinates</a>
+          <a href="#" class="lesson-link" data-lesson-name="Matrices" data-content-url="Matrics.pdf" data-notes-url="https://drive.google.com/file/d/1-2M7dLKfpA1pZYi868kqTPWVY4c44MXA/view?usp=drivesdk">Matrices</a>
+          <a href="#" class="lesson-link" data-lesson-name="Infinite Series" data-content-url="Infinite series.pdf" data-notes-url="https://drive.google.com/file/d/1Bvlf8-xZxvFXiGnOaapbIZz8OF6NIRYw/view?usp=drivesdk">Infinite Series</a>
+          <a href="#" class="lesson-link" data-lesson-name="Vector Algebra" data-content-url="Vector Algebra.pdf" data-notes-url="https://drive.google.com/file/d/1ewr0p4c0O-fc-DHeh1bSuF31WLdmDY2r/view?usp=drivesdk">Vector Algebra</a>
         </div>
       </li>
       
-      <li class="dropdown3">
-        <button class="dropdown-btn3" onclick="toggleDropdown('dropdownMenu3')">Physics - IV</button>
-        <div id="dropdownMenu3" class="dropdown-content3">
-          <a href="#" class="lesson-link" data-lesson-name="EMI & AC" data-link-url="https://drive.google.com/file/d/1qchOneI7hGWvk0QsC-buOOR5M37IiC4d/view?usp=drivesdk">UNIT-I: EMI & Alternating Currents</a>
-          <a href="#" class="lesson-link" data-lesson-name="Electromagnetic Waves" data-link-url="PhysicsIV_Unit2.pdf">UNIT-II: Electromagnetic Waves</a>
-          <a href="#" class="lesson-link" data-lesson-name="Ray Optics" data-link-url="PhysicsIV_Unit3.pdf">UNIT-III: Ray Optics and Instruments</a>
-          <a href="#" class="lesson-link" data-lesson-name="Wave Optics" data-link-url="PhysicsIV_Unit4.pdf">UNIT-IV: Wave Optics</a>
-          <a href="#" class="lesson-link" data-lesson-name="Quantum Physics & Nucleus" data-link-url="PhysicsIV_Unit5.pdf">UNIT-V: Quantum Physics & Nucleus</a>
-          <a href="#" class="lesson-link" data-lesson-name="Semiconductor Electronics" data-link-url="PhysicsIV_Unit6.pdf">UNIT-VI: Semiconductor Electronics</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu3')">Physics - IV</button>
+        <div id="dropdownMenu3" class="dropdown-content">
+          <a href="#" class="lesson-link" data-lesson-name="EMI & AC" data-ncert-url="https://drive.google.com/file/d/1qWJgdBUr-8z5k4e4bokc9XBza0xG8iSO/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1qchOneI7hGWvk0QsC-buOOR5M37IiC4d/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1q_V89kQzMh9Qa5bIrPM3tWEECbiUmWkE/view?usp=drivesdk">Electromagnetic Induction & Alternating Currents</a>
+          <a href="#" class="lesson-link" data-lesson-name="Electromagnetic Waves" data-ncert-url="https://drive.google.com/file/d/1qyXhRrxDq2qNqgMXITy1Bv5knQEukKZk/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1rMPv1r035ClU85qrOUR68DlqJPRG12IT/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1rNKbTHKq9mN_-Rf4-g9eg8lDTbuEmOse/view?usp=drivesdk">Electromagnetic Waves</a>
+          <a href="#" class="lesson-link" data-lesson-name="Ray Optics" data-ncert-url="https://drive.google.com/file/d/1reMHnc2oUAeykvJeJ-lU0s9dse1sq8ER/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1rgLgQZDJXBMBYQ-_a3Kfbr8F-i77mSWu/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1rZz2P1t92qHsJMQrcUVcMrZnXTKPJBLu/view?usp=drivesdk">Ray Optics and Instruments</a>
+          <a href="#" class="lesson-link" data-lesson-name="Wave Optics" data-ncert-url="https://drive.google.com/file/d/1rnC-cXutNLAxtiROVtYQMbN4ivRXYvOh/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1rstWWAF3LrPov6S2dcGhY8GezMrQiZFP/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1rlRhFKhYD1Kq7qbblNEnvDGFlG27Vn-_/view?usp=drivesdk">Wave Optics</a>
+          <a href="#" class="lesson-link" data-lesson-name="Quantum Physics & Nucleus" data-ncert-url="https://drive.google.com/file/d/1sTDCAzw1iQnmARLsXtHwTNUIBM9Xb6YA/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1satGZ_2dqwZ13J69q509ZEi6MuBWSOZC/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1sRADsqpnpOneftiogZweLj1mLe7H6I-8/view?usp=drivesdk">UNIT-V: Quantum Physics & Nucleus</a>
+          <a href="#" class="lesson-link" data-lesson-name="Semiconductor Electronics" data-ncert-url="https://drive.google.com/file/d/1tTIhfEiWh2z-rSxy7rd-SGBcd7KQ6nxb/view?usp=drivesdk" data-content-url="https://drive.google.com/file/d/1tRln1Ta--Ym3huey34-zNI7Jd1ncrDXM/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1tiCONZnp0158oz2ZEz0Vs720pY9vYxq6/view?usp=drivesdk">Semiconductor Electronics</a>
         </div>
       </li>
       
-      <li class="dropdown4">
-        <button class="dropdown-btn4" onclick="toggleDropdown('dropdownMenu4')">Chemistry - IV</button>
-        <div id="dropdownMenu4" class="dropdown-content4">
-          <a href="#" class="lesson-link" data-lesson-name="Aldehydes and Ketones" data-link-url="ChemistryIV_Unit1.pdf">UNIT-I: Aldehydes and Ketones</a>
-          <a href="#" class="lesson-link" data-lesson-name="Carboxylic acids and Amines" data-link-url="ChemistryIV_Unit2.pdf">UNIT-II: Carboxylic acids and Amines</a>
-          <a href="#" class="lesson-link" data-lesson-name="d-block & Coordination" data-link-url="ChemistryIV_Unit3.pdf">UNIT-III: d-block & Coordination compounds</a>
-          <a href="#" class="lesson-link" data-lesson-name="Surface Chemistry & Colloids" data-link-url="ChemistryIV_Unit4.pdf">UNIT-IV: Surface Chemistry & Colloids</a>
-          <a href="#" class="lesson-link" data-lesson-name="Metallurgy" data-link-url="ChemistryIV_Unit5.pdf">UNIT-V: Metallurgy</a>
-          <a href="#" class="lesson-link" data-lesson-name="Polymers" data-link-url="ChemistryIV_Unit6.pdf">UNIT-VI: Polymers</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu4')">Chemistry - IV</button>
+        <div id="dropdownMenu4" class="dropdown-content">
+          <a href="#" class="lesson-link" data-lesson-name="Aldehydes and Ketones" data-ncert-url="https://ncert.nic.in/textbook/pdf/lech203.pdf" data-content-url="https://drive.google.com/file/d/1ikNghmtS9ncU3zSj9xrPNbuqltKuNZ4H/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1lyMXOa_vt9DZqVVII-WAwR0nuZscibos/view?usp=drivesdk">UNIT-I: Aldehydes and Ketones</a>
+          <a href="#" class="lesson-link" data-lesson-name="Carboxylic acids and Amines" data-ncert-url="https://ncert.nic.in/textbook/pdf/lech204.pdf" data-content-url="https://drive.google.com/file/d/1ikgKCsAazNnoKP8Gvh3MqkPxqXwtqTHX/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1lqgKZWUPhzd3gNqH3A-WFfAOxGFB_BRC/view?usp=drivesdk">UNIT-II: Carboxylic acids and Amines</a>
+          <a href="#" class="lesson-link" data-lesson-name="d-block & Coordination" data-ncert-url="https://ncert.nic.in/textbook/pdf/lech104.pdf" data-content-url="https://drive.google.com/file/d/1ileKQTOXHucmRfgT035u-rSyaqsf7w5s/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1m-MT_A08v2Ca1lbUq-9akIaZyN07DDNi/view?usp=drivesdk">UNIT-III: d-block & Coordination compounds</a>
+          <a href="#" class="lesson-link" data-lesson-name="Surface Chemistry & Colloids" data-ncert-url="https://ncert.nic.in/textbook/pdf/lech105.pdf" data-content-url="https://drive.google.com/file/d/1irsvndh2Qsjdp023G19VgCrC30DQwemd/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1lmKou4lQh-eNdsQMTh1ZS7FsHhawkVGI/view?usp=drivesdk">UNIT-IV: Surface Chemistry & Colloids</a>
+          <a href="#" class="lesson-link" data-lesson-name="Metallurgy" data-ncert-url="" data-content-url="https://drive.google.com/file/d/1mD2txL_EFc_3NOD7a1WWOi6oBi2lv5M6/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1m-9MQj33r2oB3YvgdSqqaNhv1YwB-dLJ/view?usp=drivesdk">UNIT-V: Metallurgy</a>
+          <a href="#" class="lesson-link" data-lesson-name="Polymers" data-ncert-url="" data-content-url="https://drive.google.com/file/d/1YSiZjT3QKIfaY47I-TOqYH-jJ9NYe9X2/view?usp=drivesdk" data-notes-url="https://drive.google.com/file/d/1m0ORc-HE3EPgCC25Wtiqpm5zg3QnUJ7R/view?usp=drivesdk">UNIT-VI: Polymers</a>
         </div>
       </li>
       
-      <li class="dropdown5">
-        <button class="dropdown-btn5" onclick="toggleDropdown('dropdownMenu5')">తెలుగు - IV</button>
-        <div id="dropdownMenu5" class="dropdown-content5">
-          <a href="#" class="lesson-link" data-lesson-name="తెలుగుజాతి విలేకం (121-140)" data-link-url="TeluguIV_Unit1.pdf">Unit – I: తెలుగుజాతి విలేకం (121-140)</a>
-          <a href="#" class="lesson-link" data-lesson-name="తెలుగుజాతి విలేకం (141-160)" data-link-url="TeluguIV_Unit2.pdf">Unit - II: తెలుగుజాతి విలేకం (141-160)</a>
-          <a href="#" class="lesson-link" data-lesson-name="ప్రహ్లాదుని విద్య" data-link-url="TeluguIV_Unit3.pdf">Unit - III: ప్రహ్లాదుని విద్య</a>
-          <a href="#" class="lesson-link" data-lesson-name="అలంకారాలు" data-link-url="TeluguIV_Unit4.pdf">Unit - IV: అలంకారాలు</a>
-          <a href="#" class="lesson-link" data-lesson-name="ఛందస్సు" data-link-url="TeluguIV_Unit5.pdf">Unit - V: ఛందస్సు</a>
-          <a href="#" class="lesson-link" data-lesson-name="వ్యాసం" data-link-url="TeluguIV_Unit6.pdf">Unit - VI: వ్యాసం / వ్యాసాలు</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu5')">తెలుగు - IV</button>
+        <div id="dropdownMenu5" class="dropdown-content">
+          <a href="#" class="lesson-link" data-lesson-name="తెలుగుజాతి విలేకం (121-140)" data-content-url="https://drive.google.com/file/d/1fG9sa_TkeGM10ppIwFwGUY6GduTlGfG2/view?usp=drivesdk">తెలుగుజాతి విలేకం </a>
+                    <a href="#" class="lesson-link" data-lesson-name="ప్రహ్లాదుని విద్య" data-content-url="https://drive.google.com/file/d/1fYu5LaLOjqu-lQNgibQXy3DlFFtNa3Ea/view?usp=drivesdk" >Unit - III: ప్రహ్లాదుని విద్య</a>
+          <a href="#" class="lesson-link" data-lesson-name="అలంకారాలు" data-content-url="https://drive.google.com/file/d/1fhZKNr7IRNCg5YDHKatVls91Vmktf7pn/view?usp=drivesdk" >అలంకారాలు</a>
+          <a href="#" class="lesson-link" data-lesson-name="ఛందస్సు" data-content-url="https://drive.google.com/file/d/1fmqMwHkTpaVjknBYgK4X_qcktASQscG3/view?usp=drivesdk" >Anuvadham</a>
+          <a href="#" class="lesson-link" data-lesson-name="వ్యాసం" data-content-url="https://drive.google.com/file/d/1fpcxQKd-SboBU_eKKKKJZyC8F9xxZMZd/view?usp=drivesdk" >వ్యాసం / వ్యాసాలు</a>
         </div>
       </li>
       
-      <li class="dropdown6">
-        <button class="dropdown-btn6" onclick="toggleDropdown('dropdownMenu6')">Python</button>
-        <div id="dropdownMenu6" class="dropdown-content6">
-          <a href="#" class="lesson-link" data-lesson-name="Genetics" data-link-url="BiologyIV_Unit1.pdf">UNIT-I</a>
-          <a href="#" class="lesson-link" data-lesson-name="Molecular Basis" data-link-url="BiologyIV_Unit2.pdf">UNIT-II</a>
-          <a href="#" class="lesson-link" data-lesson-name="Principles of Biotechnology" data-link-url="BiologyIV_Unit3.pdf">UNIT-III</a>
-          <a href="#" class="lesson-link" data-lesson-name="Biotechnology Applications" data-link-url="BiologyIV_Unit4.pdf">UNIT-IV</a>
-          <a href="#" class="lesson-link" data-lesson-name="Ecology" data-link-url="BiologyIV_Unit5.pdf">UNIT-V</a>
-          <a href="#" class="lesson-link" data-lesson-name="Biodiversity & Conservation" data-link-url="BiologyIV_Unit6.pdf">UNIT-VI</a>
+      <li class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdownMenu6')">Python</button>
+        <div id="dropdownMenu6" class="dropdown-content">
+          
+<a href="#" class="lesson-link" data-lesson-name="it content" data-content-url="https://drive.google.com/file/d/1yU6TJTjw5kehEXE6xikjSANO6fdhxrTj/view?usp=drivesdk" >Full Pdf Type-1</a>
+<a href="#" class="lesson-link" data-lesson-name="notes 4" data-content-url="IT CONTENT.pdf" >Type-2</a>
+<h2>Notes </h2>
+<a href="#" class="lesson-link" data-lesson-name="notes 1" data-content-url="https://drive.google.com/file/d/1zSMCf27iUQrghB8yg8HKnzcw90h_qR39/view?usp=drivesdk" >Unit-I</a>
+          <a href="#" class="lesson-link" data-lesson-name="notes 2" data-content-url="https://drive.google.com/file/d/1zMoNs93TOqPxtBWINTXAQ1WQjAXjMHmV/view?usp=drivesdk">UNIT-II</a>
+          <a href="#" class="lesson-link" data-lesson-name="notes 3" data-content-url="https://drive.google.com/file/d/1zXa8ajVEsiXi5yHrY4jC74e9ztAlA3nu/view?usp=drivesdk" >UNIT-III</a>
+          
+          <a href="#" class="lesson-link" data-lesson-name="notes 5" data-content-url="https://drive.google.com/file/d/1Xc75hXBbdrvaqzNniR6V0w2v5BfcHLBU/view?usp=drivesdk" >UNIT-V</a>
+          <a href="#" class="lesson-link" data-lesson-name="notes 6" data-content-url="https://drive.google.com/file/d/1XhK2ArWsggqRrqrJ3rQnXRmLS0uKA97p/view?usp=drivesdk" >UNIT-VI</a>
         </div>
       </li>
       
-    </ul> <br><br><br>
+    </ul>
+<br><br><br>
   </main>
 
   <footer>
     <p>Made with <span style="color: red;">❤️</span> for Rguktians</p>
     
     <div class="social-icons">
-      <a href="https://www.youtube.com/@yugandhar_pallapothula" target="_blank">
+      <a href="https://www.youtube.com/@yvdp07" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
       </a>
-      <a href="https://www.instagram.com/@yugandhar_pallapothula" target="_blank">
+      <a href="https://www.instagram.com/@yugandharvdp_2007" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
       </a>
     </div>
@@ -375,14 +483,15 @@
     <p class="copyright">&copy; 2025 Yugandhar Pallapothula. All rights reserved.</p>
   </footer>
 
-  <div id="contentModal" class="modal" style="display: none;">
+  <div id="contentModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
       <h3 id="lessonTitle"></h3>
       <p style="margin-bottom: 20px;">Choose the content type you need:</p>
       
-      <a href="#" id="contentLink" class="popup-option">Textbook / Content</a>
-      <a href="#" id="analysisLink" class="popup-option">Handwritten Analysis / Notes</a>
+      <a href="#" id="ncertLink" class="popup-option">NCERT Textbook</a>
+      <a href="#" id="contentLink" class="popup-option">PUC Content/Textbook</a>
+      <a href="#" id="analysisLink" class="popup-option">Handwritten Analysis/Notes</a>
     </div>
   </div>
 
@@ -396,35 +505,65 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById("contentModal");
-      const lessonTitle = document.getElementById("lessonTitle");
-      const contentLink = document.getElementById("contentLink");
-      const analysisLink = document.getElementById("analysisLink"); 
-      const lessonLinks = document.querySelectorAll('.lesson-link');
+        
+        const modal = document.getElementById("contentModal");
+        const lessonTitle = document.getElementById("lessonTitle");
+        const ncertLink = document.getElementById("ncertLink");
+        const contentLink = document.getElementById("contentLink");
+        const analysisLink = document.getElementById("analysisLink"); 
+        const lessonLinks = document.querySelectorAll('.lesson-link');
 
-      function openModal(lessonName, contentUrl) {
-        lessonTitle.textContent = lessonName;
-        contentLink.href = contentUrl;
-        analysisLink.href = contentUrl; 
-        modal.style.display = "block";
-      }
-      
-      lessonLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-          event.preventDefault(); 
-          const name = this.getAttribute('data-lesson-name');
-          const url = this.getAttribute('data-link-url');
-          openModal(name, url);
-        });
-      });
-      
-      window.onclick = function(event) {
-        if (event.target === modal) {
-          closeModal();
+        // Function to check if the subject is Physics or Chemistry
+        function isScienceSubject(element) {
+            const listItem = element.closest('li');
+            if (!listItem) return false;
+            
+            const buttonText = listItem.querySelector('.dropdown-btn').textContent;
+            return buttonText.includes('Physics') || buttonText.includes('Chemistry');
         }
-      }
+
+        // UPDATED openModal function
+        function openModal(lessonName, ncertUrl, contentUrl, notesUrl, isScience) {
+            lessonTitle.textContent = lessonName;
+            
+            // 1. Set visibility and URL for NCERT link
+            if (isScience) {
+                ncertLink.style.display = 'block';
+                ncertLink.href = ncertUrl; 
+            } else {
+                ncertLink.style.display = 'none';
+                ncertLink.href = '#'; 
+            }
+            
+            // 2. Set other links
+            contentLink.href = contentUrl;
+            analysisLink.href = notesUrl; 
+
+            modal.style.display = "block";
+        }
+        
+        lessonLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                const isScience = isScienceSubject(this); 
+                const name = this.getAttribute('data-lesson-name');
+                
+                // Retrieve URLs. We use '#' as a fallback if the attribute is missing 
+                const ncertUrl = this.getAttribute('data-ncert-url') || '#'; 
+                const contentUrl = this.getAttribute('data-content-url') || '#'; 
+                const notesUrl = this.getAttribute('data-notes-url') || '#'; 
+                
+                // Pass all parameters to the modal function
+                openModal(name, ncertUrl, contentUrl, notesUrl, isScience);
+            });
+        });
+        
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
     });
   </script>
 </body>
 </html>
-
